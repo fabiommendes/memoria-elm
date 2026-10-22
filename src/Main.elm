@@ -160,7 +160,7 @@ conjunto, ponha os arquivos `a1` a `h2` numa pasta nova e troque aqui.
 -}
 cardsFolder : String
 cardsFolder =
-    "cards/gravuras/"
+    "cards/ia/"
 
 
 cardsExtension : String
@@ -168,7 +168,7 @@ cardsExtension =
     ".webp"
 
 
-{-| Caminho da imagem da carta, como `cards/gravuras/a1.webp`.
+{-| Caminho da imagem da carta, como `cards/ia/a1.webp`.
 -}
 imagePath : Card -> String
 imagePath card =

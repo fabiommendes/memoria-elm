@@ -11,7 +11,7 @@ fêmea de cada espécie.
 
 - O tabuleiro tem 16 cartas (4 × 4) em 8 grupos. Cada grupo tem duas cartas
   diferentes, mas relacionadas: no tema que vem pronto, o macho e a fêmea de
-  uma espécie (leão e leoa, pavão e pavoa, touro e vaca...).
+  uma espécie (leão e leoa, pavão e pavoa, galo e galinha...).
 - Vire duas cartas por jogada. Se forem do mesmo grupo, formam um par.
 - As cartas erradas ficam à mostra por 1 segundo e voltam a ficar viradas.
 - Passe o mouse sobre um par já encontrado para ampliar a carta.
@@ -55,7 +55,7 @@ subpastas, porque os caminhos são relativos.
 | elm-format | Formatação padrão do código Elm |
 | HTML semântico e CSS | Estrutura com `main`, `ol`, `button` e `dialog`; visual todo em CSS |
 | Fontsource | Fontes Alegreya e Alegreya Sans servidas pelo próprio site, sem CDN |
-| WebP | 16 gravuras de domínio público (Buffon e Schreber, séculos XVIII e XIX) |
+| WebP | Cartas no estilo de pranchas de história natural: geradas por IA (padrão) ou gravuras de domínio público de Buffon e Schreber |
 
 O projeto não usa JSON, `Http`, portas nem bibliotecas de terceiros em Elm. O
 único dado que vem do JavaScript é um número inteiro, passado nas flags, que
@@ -71,7 +71,8 @@ memoria/
 ├── public/
 │   ├── favicon.svg
 │   └── cards/
-│       └── gravuras/     16 gravuras em pares (a1/a2 ... h1/h2) e CREDITS.md
+│       ├── ia/           16 imagens geradas por IA (padrão) e CREDITS.md
+│       └── gravuras/     16 gravuras de domínio público e CREDITS.md
 ├── src/
 │   ├── main.js           inicia o Elm e passa a semente
 │   ├── Main.elm          Arquitetura Elm: modelo, mensagens, update e view
@@ -98,9 +99,11 @@ O resto é infraestrutura fornecida e pode ter mais complexidade:
   papel-cartão, verso estampado como baralho antigo), layout, virada 3D, zoom nos
   pares encontrados, botão redondo de novo jogo com ícone
   e suporte a `prefers-reduced-motion`.
-- `public/cards/gravuras/*.webp`: as gravuras. O código só conhece os nomes dos
-  arquivos: `a1.webp` faz par com `a2.webp`, e assim por diante. A origem
-  de cada uma está em `public/cards/gravuras/CREDITS.md`.
+- `public/cards/ia/` e `public/cards/gravuras/`: dois conjuntos de
+  imagens. O padrão é o de IA; `cardsFolder` em `src/Main.elm` escolhe
+  qual usar. O código só conhece os nomes dos arquivos: `a1.webp` faz par
+  com `a2.webp`, e assim por diante. Cada pasta tem um `CREDITS.md` com a
+  origem das imagens.
 
 ### Fluxo de dados
 

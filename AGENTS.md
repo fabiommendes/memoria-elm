@@ -31,8 +31,9 @@ O gerenciador de pacotes é o pnpm.
 - O layout assume o tabuleiro 4 × 4 com 16 cartas, em arquivos fixos
   `a1` a `h2`. Cada conjunto de imagens fica numa pasta de `public/cards/`,
   escolhida por `cardsFolder` e `cardsExtension` em `src/Main.elm`. A origem
-  e a licença de cada imagem ficam num `CREDITS.md` na mesma pasta; só
-  entram imagens de domínio público.
+  de cada imagem fica num `CREDITS.md` na mesma pasta. Só entram imagens de
+  domínio público ou geradas por IA com o modelo e o prompt registrados.
+  O padrão é `cards/ia/`; `cards/gravuras/` é a alternativa.
 - Estética de mesa de jogo: feltro verde, cartas de papel-cartão, tons de
   vinho e creme, fontes Alegreya e Alegreya Sans. Sem neon, brilho ou
   degradês chamativos.
