@@ -33,11 +33,6 @@ type Seed
     = Seed Int
 
 
-modulus : Int
-modulus =
-    4294967296
-
-
 {-| Cria uma semente a partir de um inteiro qualquer, por exemplo o valor
 recebido do JavaScript nas flags.
 
@@ -73,19 +68,29 @@ int low high current =
 shuffle : Seed -> List a -> ( List a, Seed )
 shuffle current list =
     let
-        items =
+        array =
             Array.fromList list
 
+        step : Int -> ( Array a, Seed ) -> ( Array a, Seed )
         step i ( acc, s ) =
             let
                 ( j, s2 ) =
                     int 0 i s
             in
             ( swap i j acc, s2 )
+
+        swap : Int -> Int -> Array a -> Array a
+        swap i j items =
+            case ( Array.get i items, Array.get j items ) of
+                ( Just a, Just b ) ->
+                    items |> Array.set i b |> Array.set j a
+
+                _ ->
+                    items
     in
-    List.range 1 (Array.length items - 1)
+    List.range 1 (Array.length array - 1)
         |> List.reverse
-        |> List.foldl step ( items, current )
+        |> List.foldl step ( array, current )
         |> Tuple.mapFirst Array.toList
 
 
@@ -94,11 +99,6 @@ next (Seed x) =
     Seed (modBy modulus (1664525 * x + 1013904223))
 
 
-swap : Int -> Int -> Array a -> Array a
-swap i j items =
-    case ( Array.get i items, Array.get j items ) of
-        ( Just a, Just b ) ->
-            items |> Array.set i b |> Array.set j a
-
-        _ ->
-            items
+modulus : Int
+modulus =
+    4294967296

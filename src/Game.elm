@@ -89,6 +89,8 @@ fullDeck =
     List.concatMap (\group -> [ ( group, 1 ), ( group, 2 ) ]) (String.toList "abcdefgh")
 
 
+{-| Cria uma carta virada para baixo com o identificador e o grupo informados.
+-}
 toCard : Int -> ( Char, Int ) -> Card
 toCard id ( group, member ) =
     { id = id, group = group, member = member, face = FaceDown }
@@ -117,6 +119,8 @@ reveal id game =
             game
 
 
+{-| Registra a escolha de uma carta conforme o estado atual da jogada.
+-}
 pick : Card -> Game -> Game
 pick card game =
     case game.turn of
@@ -163,16 +167,22 @@ hideMismatch game =
             game
 
 
+{-| Indica se todas as cartas foram encontradas e estão marcadas como pares.
+-}
 isWon : Game -> Bool
 isWon game =
     List.all (\card -> card.face == Matched) game.cards
 
 
+{-| Procura no jogo uma carta com o identificador informado.
+-}
 findCard : Int -> Game -> Maybe Card
 findCard id game =
     List.head (List.filter (\card -> card.id == id) game.cards)
 
 
+{-| Atualiza a face das cartas cujos identificadores estão na lista.
+-}
 setFace : Face -> List Int -> List Card -> List Card
 setFace face ids cards =
     List.map

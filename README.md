@@ -1,4 +1,4 @@
-# Memória dos Casais
+# Jogo da Memória
 
 Jogo da memória educacional escrito em [Elm](https://elm-lang.org), feito
 para ensinar programação funcional. Em vez de juntar cartas idênticas, o
@@ -31,14 +31,14 @@ Com `pnpm dev` aberto, salvar qualquer arquivo `.elm` ou `.css` atualiza a
 página sem perder o estado da partida. No canto da tela aparece o depurador
 do Elm, que mostra cada mensagem e deixa voltar no tempo.
 
-| Comando | O que faz |
-| :-- | :-- |
-| `pnpm dev` | Servidor de desenvolvimento com hot reload e depurador do Elm |
-| `pnpm test` | Roda os testes de `tests/` com elm-test |
-| `pnpm build` | Gera o site estático otimizado em `dist/` |
-| `pnpm preview` | Serve o conteúdo de `dist/` para conferir o build |
-| `pnpm format` | Formata o código Elm com elm-format |
-| `pnpm check` | Formatação, testes e build; é o que define "pronto" |
+| Comando        | O que faz                                                     |
+| :------------- | :------------------------------------------------------------ |
+| `pnpm dev`     | Servidor de desenvolvimento com hot reload e depurador do Elm |
+| `pnpm test`    | Roda os testes de `tests/` com elm-test                       |
+| `pnpm build`   | Gera o site estático otimizado em `dist/`                     |
+| `pnpm preview` | Serve o conteúdo de `dist/` para conferir o build             |
+| `pnpm format`  | Formata o código Elm com elm-format                           |
+| `pnpm check`   | Formatação, testes e build; é o que define "pronto"           |
 
 O conteúdo de `dist/` é estático: dá para publicar em qualquer servidor de
 arquivos (GitHub Pages, Netlify, uma pasta do Apache), inclusive em
@@ -46,16 +46,16 @@ subpastas, porque os caminhos são relativos.
 
 ## Tecnologias
 
-| Ferramenta | Papel |
-| :-- | :-- |
-| Elm 0.19 | Linguagem do jogo. Só usa `elm/core`, `elm/html` e `elm/browser` |
-| Vite | Servidor de desenvolvimento, hot reload e build |
-| vite-plugin-elm | Compila os módulos Elm dentro do Vite |
-| elm-test | Testes unitários e testes com entradas aleatórias (fuzz) |
-| elm-format | Formatação padrão do código Elm |
-| HTML semântico e CSS | Estrutura com `main`, `ol`, `button` e `dialog`; visual todo em CSS |
-| Fontsource | Fontes Alegreya e Alegreya Sans servidas pelo próprio site, sem CDN |
-| WebP | Cartas no estilo de pranchas de história natural: geradas por IA (padrão) ou gravuras de domínio público de Buffon e Schreber |
+| Ferramenta           | Papel                                                                                                                         |
+| :------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| Elm 0.19             | Linguagem do jogo. Só usa `elm/core`, `elm/html` e `elm/browser`                                                              |
+| Vite                 | Servidor de desenvolvimento, hot reload e build                                                                               |
+| vite-plugin-elm      | Compila os módulos Elm dentro do Vite                                                                                         |
+| elm-test             | Testes unitários e testes com entradas aleatórias (fuzz)                                                                      |
+| elm-format           | Formatação padrão do código Elm                                                                                               |
+| HTML semântico e CSS | Estrutura com `main`, `ol`, `button` e `dialog`; visual todo em CSS                                                           |
+| Fontsource           | Fontes Alegreya e Alegreya Sans servidas pelo próprio site, sem CDN                                                           |
+| WebP                 | Cartas no estilo de pranchas de história natural: geradas por IA (padrão) ou gravuras de domínio público de Buffon e Schreber |
 
 O projeto não usa JSON, `Http`, portas nem bibliotecas de terceiros em Elm. O
 único dado que vem do JavaScript é um número inteiro, passado nas flags, que
@@ -158,23 +158,6 @@ isPair : Card -> Card -> Bool
 isPair a b =
     a.group == b.group && a.member /= b.member
 ```
-
-### Decisões de projeto
-
-- **Gerador próprio em vez de `elm/random`.** Com `Rng`, embaralhar é
-  uma função pura `Seed -> List a -> ( List a, Seed )`. Os alunos não precisam
-  aprender `Cmd` e `Generator` para ter cartas em ordem aleatória, e os testes
-  ficam determinísticos. O gerador é congruencial linear, com as constantes
-  do Numerical Recipes (`x' = (1664525 * x + 1013904223) mod 2^32`).
-- **Regras separadas da tela.** `Game.elm` não importa `Html`. Os testes
-  exercitam as regras sem navegador.
-- **Imagem escondida na carta fechada.** Num jogo novo, o Elm reaproveita
-  os elementos das cartas e troca só o `src` da imagem. Uma regra no CSS
-  esconde a imagem de toda carta fechada, então as casas que estavam abertas
-  não mostram o tabuleiro novo de relance enquanto viram.
-- **Acessibilidade.** Cada carta é um `button` com `aria-label` ("Carta 3,
-  aberta"); o foco do teclado é visível; as animações respeitam
-  `prefers-reduced-motion`.
 
 ## Como trocar o tema
 
